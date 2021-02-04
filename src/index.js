@@ -9,6 +9,7 @@ import App from './components/App';
 import AppReducers from './reducers/index';
 
 import './index.css';
+import './theme.scss';
 
 const logger = createLogger({
   collapsed: true,
