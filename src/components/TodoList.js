@@ -1,6 +1,9 @@
 import TodoItem from "./TodoItem";
 function TodoList({ todos }) {
   if (todos) {
+    const allCount = todos.length;
+    const activeCount = todos.filter(t => !t.completed).length;
+
     return (
       <nav class="panel is-primary">
         <p class="panel-heading has-text-centered">
@@ -15,9 +18,9 @@ function TodoList({ todos }) {
           </p>
         </div>
         <p class="panel-tabs">
-          <a class="is-active">All <span class="tag is-primary is-rounded">3</span></a>
-          <a>Active <span class="tag is-primary is-rounded">3</span></a>
-          <a>Completed <span class="tag is-primary is-rounded">3</span></a>
+          <a class="is-active">All <span class="tag is-primary is-rounded">{allCount}</span></a>
+          <a>Active <span class="tag is-primary is-rounded">{activeCount}</span></a>
+          <a>Completed <span class="tag is-primary is-rounded">{allCount - activeCount}</span></a>
         </p>
         <TodoItem />
       </nav>

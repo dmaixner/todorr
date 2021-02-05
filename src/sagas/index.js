@@ -9,8 +9,8 @@ const fetchTodosFromApi = () => {
 }
 
 function* fetchTodos() {
-  const tempData = yield call(fetchTodosFromApi);
-  yield put(setTodos(tempData));
+  const todos = yield call(fetchTodosFromApi);
+  yield put(setTodos(todos));
 }
 
 function* watchFetchTodos() {
