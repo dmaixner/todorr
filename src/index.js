@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux';
-import { createLogger } from 'redux-logger'
+import { createLogger } from 'redux-logger';
+
+import createSagaMiddleware from 'redux-saga';
 
 import App from './components/App';
-import AppReducers from './reducers/index';
+import AppReducers from './reducers';
+import rootSaga from './sagas';
 
 import './theme.scss';
 
@@ -16,7 +19,11 @@ const logger = createLogger({
   diff: true
 });
 
-let store = createStore(AppReducers, applyMiddleware(logger));
+const sagaMiddleware = createSagaMiddleware()
+
+let store = createStore(AppReducers, applyMiddleware(logger, sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>
