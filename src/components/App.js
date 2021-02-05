@@ -1,6 +1,6 @@
 import TodoList from "./TodoList";
 
-function App() {
+function App({ todos }) {
   return (
     <section class="section">
       <div class="columns is-centered">

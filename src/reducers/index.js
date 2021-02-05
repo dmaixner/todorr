@@ -1,5 +1,16 @@
-import { combineReducers } from 'redux';
+import { SET_TODOS } from '../actions';
 
-const AppReducers = combineReducers({})
+const initialState = {
+    todos: {}
+}
 
-export default AppReducers;
+const todoReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case SET_TODOS:
+            return { ...state, todos: action.todos };
+        default:
+            return state;
+    }
+}
+
+export default todoReducer;

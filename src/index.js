@@ -7,8 +7,8 @@ import { createLogger } from 'redux-logger';
 
 import createSagaMiddleware from 'redux-saga';
 
-import App from './components/App';
-import AppReducers from './reducers';
+import AppContainer from './containers/AppContainer';
+import todoReducer from './reducers';
 import rootSaga from './sagas';
 
 import './theme.scss';
@@ -21,14 +21,14 @@ const logger = createLogger({
 
 const sagaMiddleware = createSagaMiddleware()
 
-let store = createStore(AppReducers, applyMiddleware(logger, sagaMiddleware));
+let store = createStore(todoReducer, applyMiddleware(logger, sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <AppContainer />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
