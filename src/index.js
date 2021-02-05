@@ -7,7 +7,7 @@ import { createLogger } from 'redux-logger';
 
 import createSagaMiddleware from 'redux-saga';
 
-import AppContainer from './containers/AppContainer';
+import App from './components/App';
 import todoReducer from './reducers';
 import rootSaga from './sagas';
 
@@ -28,7 +28,7 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <AppContainer />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

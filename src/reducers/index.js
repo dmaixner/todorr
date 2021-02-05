@@ -1,7 +1,7 @@
 import { SET_TODOS } from '../actions';
 
 const initialState = {
-  todos: {}
+  todos: null
 }
 
 const todoReducer = (state = initialState, action) => {
