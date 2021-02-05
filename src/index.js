@@ -8,7 +8,6 @@ import { createLogger } from 'redux-logger'
 import App from './components/App';
 import AppReducers from './reducers/index';
 
-import './index.css';
 import './theme.scss';
 
 const logger = createLogger({
