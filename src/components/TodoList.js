@@ -1,32 +1,38 @@
+import { FILTER } from "../consts";
 import TodoItem from "./TodoItem";
-function TodoList({ todos }) {
+
+function TodoList({ todos, filter, filteredTodos, filterTodos }) {
   if (todos) {
     const allCount = todos.length;
     const activeCount = todos.filter(t => !t.completed).length;
 
     return (
-      <nav class="panel is-primary">
-        <p class="panel-heading has-text-centered">
+      <nav className="panel is-primary">
+        <p className="panel-heading has-text-centered">
           ToDo RR
             </p>
-        <div class="panel-block">
-          <p class="control has-icons-left">
-            <input class="input is-primary" type="text" placeholder="what needs to be done" />
-            <span class="icon is-left">
-              <i class="fas fa-plus" aria-hidden="true"></i>
+        <div className="panel-block">
+          <p className="control has-icons-left">
+            <input className="input is-primary" type="text" placeholder="what needs to be done" />
+            <span className="icon is-left">
+              <i className="fas fa-plus" aria-hidden="true"></i>
             </span>
           </p>
         </div>
-        <p class="panel-tabs">
-          <a class="is-active">All <span class="tag is-primary is-rounded">{allCount}</span></a>
-          <a>Active <span class="tag is-primary is-rounded">{activeCount}</span></a>
-          <a>Completed <span class="tag is-primary is-rounded">{allCount - activeCount}</span></a>
+        <p className="panel-tabs">
+          <a href="#" className={filter === FILTER.ALL ? "is-active" : ""} onClick={() => filterTodos(FILTER.ALL)}>All <span className="tag is-primary is-rounded">{allCount}</span></a>
+          <a href="#" className={filter === FILTER.ACTIVE ? "is-active" : ""} onClick={() => filterTodos(FILTER.ACTIVE)}>Active <span className="tag is-primary is-rounded">{activeCount}</span></a>
+          <a href="#" className={filter === FILTER.COMPLETED ? "is-active" : ""} onClick={() => filterTodos(FILTER.COMPLETED)}>Completed <span className="tag is-primary is-rounded">{allCount - activeCount}</span></a>
         </p>
-        <TodoItem />
-      </nav>
+        {
+          filteredTodos.map((todo) =>
+            <TodoItem key={todo.id} todo={todo} />
+          )
+        }
+      </nav >
     );
   } else {
-    return (<progress class="progress is-small is-primary" max="100"></progress>)
+    return (<progress className="progress is-small is-primary" max="100"></progress>)
   }
 }
 

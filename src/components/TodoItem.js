@@ -1,8 +1,8 @@
-function TodoItem() {
+function TodoItem({ todo }) {
   return (
-    <label class="panel-block">
+    <label className="panel-block">
       <input type="checkbox" />
-      remember me
+      {todo.text}
     </label>
   );
 }
