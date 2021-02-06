@@ -29,7 +29,17 @@ function TodoList({ allCount, activeCount, filter, filteredTodos, filterTodos })
       </nav >
     );
   } else {
-    return (<progress className="progress is-small is-primary" max="100"></progress>)
+    return (
+      <div className="has-text-centered">
+        <div><h3 className="title is-3 has-text-primary">Loading data... While waiting, enjoy some random cat. :)</h3></div>
+        <div className="media pt-4 pb-4">
+          <div className="media-content">
+            <img src={"https://cataas.com/cat/gif?d=" + Date.now()} alt="random cat" />
+          </div>
+        </div>
+        <div><progress className="progress is-small is-primary" max="100"></progress></div>
+      </div>
+    )
   }
 }
 
