@@ -1,11 +1,8 @@
 import { FILTER } from "../consts";
 import TodoItem from "./TodoItem";
 
-function TodoList({ todos, filter, filteredTodos, filterTodos }) {
-  if (todos) {
-    const allCount = todos.length;
-    const activeCount = todos.filter(t => !t.completed).length;
-
+function TodoList({ allCount, activeCount, filter, filteredTodos, filterTodos }) {
+  if (filteredTodos) {
     return (
       <nav className="panel is-primary">
         <div className="panel-heading has-text-centered">
