@@ -9,20 +9,14 @@ const mapStateToProps = (state) => {
     filteredTodos: state.filteredTodos
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // fetchTodos: () => {
-    //   dispatch(fetchTodos());
-    // },
-    filterTodos: (filter) => {
-      dispatch(filterTodos(filter));
-    },
-  }
+
+const actions = {
+  filterTodos
 }
 
 const TodoListContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  actions
 )(TodoList);
 
 export default TodoListContainer;
