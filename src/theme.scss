@@ -8,9 +8,14 @@ $text-strong: $grey-dark;
 @import 'bulma';
 
 .panel-tabs a:focus, .panel-tabs a:focus-within, .panel-tabs a:hover, .panel-tabs a.is-active {
-    color: $primary !important;
+  color: $primary !important;
 }
 
 .panel-tabs a {
-    color: $text !important;
+  color: $text !important;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  color: $grey-light !important;
 }
