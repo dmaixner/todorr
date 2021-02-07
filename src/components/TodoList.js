@@ -1,5 +1,5 @@
 import { FILTER } from "../consts";
-import TodoItem from "./TodoItem";
+import TodoItemContainer from "../containers/TodoItemContainer";
 
 function TodoList({ allCount, activeCount, filter, filteredTodos, setFilter, fetchAddTodo, setInputText, inputText }) {
   if (filteredTodos) {
@@ -36,7 +36,7 @@ function TodoList({ allCount, activeCount, filter, filteredTodos, setFilter, fet
         </div>
         {
           filteredTodos.map((todo) =>
-            <TodoItem key={todo.id} todo={todo} />
+            <TodoItemContainer key={todo.id} todo={todo} />
           )
         }
       </nav >

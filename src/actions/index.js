@@ -39,3 +39,15 @@ export const setAlert = (text, style) => ({
   text,
   style
 });
+
+export const FETCH_DELETE_TODO = 'FETCH_DELETE_TODO';
+export const fetchDeleteTodo = (id) => ({
+  type: FETCH_DELETE_TODO,
+  id
+});
+
+export const SET_DELETE_TODO = 'SET_DELETE_TODO';
+export const setDeleteTodo = (id) => ({
+  type: SET_DELETE_TODO,
+  id
+});

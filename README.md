@@ -25,12 +25,12 @@ This app is using backend with API described here: [TODO-BE](https://github.com/
 - [x] create item
 - [x] read items
 - [ ] update item
-- [ ] delete item (with confirmation)
+- [x] delete item
 - [ ] complete/incomplete item
 - [x] filter items to all/active/completed
 - [x] display number of all/active/completed
 - [ ] complete all visible at once
-- [ ] remove all completed at once (with confirmation)
+- [ ] remove all completed at once
 - [x] responsive
 - [ ] missing backend
 - [ ] concurrency

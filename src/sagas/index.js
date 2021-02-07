@@ -1,5 +1,5 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
-import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert } from '../actions';
+import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo } from '../actions';
 import { ALERT } from "../consts";
 
 const fetchTodosFromApi = () => {
@@ -46,10 +46,29 @@ function* watchFetchAddTodo() {
   yield takeLatest(FETCH_ADD_TODO, fetchAddTodo);
 }
 
+const fetchDeleteTodoFromApi = (id) => {
+  return fetch("http://localhost:8080/todos/" + id, {
+    method: "DELETE"
+  })
+    .then(res => res.json())
+    .then(json => json)
+    .catch(err => { });
+}
+
+function* fetchDeleteTodo(action) {
+  yield call(fetchDeleteTodoFromApi, action.id);
+  yield put(setDeleteTodo(action.id));
+}
+
+function* watchFetchDeleteTodo() {
+  yield takeLatest(FETCH_DELETE_TODO, fetchDeleteTodo);
+}
+
 const todosSagas = [
   fetchTodos(),
   watchFetchTodos(),
-  watchFetchAddTodo()
+  watchFetchAddTodo(),
+  watchFetchDeleteTodo()
 ];
 
 export default function* rootSaga() {

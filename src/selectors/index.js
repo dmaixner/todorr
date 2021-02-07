@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 import { FILTER } from '../consts';
 
-export const getTodos = (state) => state.todo.todos;
-export const getFilter = (state) => state.todo.filter;
-export const getInputText = (state) => state.todo.inputText;
+export const getTodos = (state) => state.todoList.todos;
+export const getFilter = (state) => state.todoList.filter;
+export const getInputText = (state) => state.todoList.inputText;
 
 export const getAllCount = createSelector(getTodos, (todos) => todos.length);
 export const getActiveCount = createSelector(getTodos, (todos) => todos.filter(t => !t.completed).length);
