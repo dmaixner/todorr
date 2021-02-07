@@ -17,3 +17,6 @@ export const getFilteredTodos = createSelector([getTodos, getFilter], (todos, fi
 
 export const getAlertText = (state) => state.alert.text;
 export const getAlertStyle = (state) => state.alert.style;
+
+export const getTodoUpdating = (state, id) => state.todoList.updating === id;
+export const getTodoUpdatingText = (state) => state.todoList.updatingText;

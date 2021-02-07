@@ -13,7 +13,15 @@ function TodoList({ allCount, activeCount, filter, filteredTodos, setFilter, fet
             <div className="control">
               <div className="field has-addons">
                 <div className="control has-icons-left is-expanded">
-                  <input className="input is-primary" value={inputText} type="text" onChange={(e) => setInputText(e.target.value)} placeholder="what needs to be done" />
+                  <input
+                    className="input is-primary"
+                    value={inputText}
+                    type="text"
+                    onKeyDown={(e) => { if (e.key === 'Esc' || e.key === 'Escape') { setInputText('') } }}
+                    onChange={(e) => setInputText(e.target.value)}
+                    placeholder="what needs to be done"
+                    autoFocus
+                  />
                   <span className="icon is-left">
                     <i className="fas fa-plus" aria-hidden="true"></i>
                   </span>

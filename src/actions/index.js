@@ -51,3 +51,24 @@ export const setDeleteTodo = (id) => ({
   type: SET_DELETE_TODO,
   id
 });
+
+export const SET_TODO_UPDATING = 'SET_TODO_UPDATING';
+export const setTodoUpdating = (id, text) => ({
+  type: SET_TODO_UPDATING,
+  id,
+  text
+});
+
+export const FETCH_UPDATE_TODO = 'FETCH_UPDATE_TODO';
+export const fetchUpdateTodo = (id, text) => ({
+  type: FETCH_UPDATE_TODO,
+  id,
+  text
+});
+
+export const SET_UPDATE_TODO = 'SET_UPDATE_TODO';
+export const setUpdateTodo = (id, text) => ({
+  type: SET_UPDATE_TODO,
+  id,
+  text
+});

@@ -1,13 +1,23 @@
 import { connect } from 'react-redux';
 import TodoItem from '../components/TodoItem';
-import { fetchDeleteTodo } from '../actions';
+import { fetchDeleteTodo, setTodoUpdating, fetchUpdateTodo } from '../actions';
+import { getTodoUpdating, getTodoUpdatingText } from '../selectors';
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    updating: getTodoUpdating(state, ownProps.todo.id),
+    updatingText: getTodoUpdatingText(state)
+  }
+}
 
 const actions = {
-  fetchDeleteTodo
+  fetchDeleteTodo,
+  setTodoUpdating,
+  fetchUpdateTodo
 }
 
 const TodoItemContainer = connect(
-  null,
+  mapStateToProps,
   actions
 )(TodoItem);
 

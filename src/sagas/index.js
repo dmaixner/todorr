@@ -1,5 +1,5 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
-import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo } from '../actions';
+import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo, FETCH_UPDATE_TODO, setTodoUpdating, setUpdateTodo } from '../actions';
 import { ALERT } from "../consts";
 
 const fetchTodosFromApi = () => {
@@ -64,11 +64,40 @@ function* watchFetchDeleteTodo() {
   yield takeLatest(FETCH_DELETE_TODO, fetchDeleteTodo);
 }
 
+const fetchUpdateTodoFromApi = (id, text) => {
+  return fetch("http://localhost:8080/todos/" + id, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ 'text': text })
+  })
+    .then(res => res.json())
+    .then(json => json)
+    .catch(err => { });
+}
+
+function* fetchUpdateTodo(action) {
+  if (action.text && action.text.trim()) {
+    const actionText = action.text.trim();
+    const todo = yield call(fetchUpdateTodoFromApi, action.id, actionText);
+    yield put(setTodoUpdating(null, ''));
+    yield put(setUpdateTodo(todo.id, todo.text));
+  } else {
+    yield put(setAlert('Please enter TODO text first.', ALERT.ERROR));
+  }
+}
+
+function* watchFetchUpdateTodo() {
+  yield takeLatest(FETCH_UPDATE_TODO, fetchUpdateTodo);
+}
+
 const todosSagas = [
   fetchTodos(),
   watchFetchTodos(),
   watchFetchAddTodo(),
-  watchFetchDeleteTodo()
+  watchFetchDeleteTodo(),
+  watchFetchUpdateTodo()
 ];
 
 export default function* rootSaga() {

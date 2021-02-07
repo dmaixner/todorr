@@ -1,10 +1,12 @@
-import { SET_TODOS, SET_FILTER, SET_ADD_TODO, SET_INPUT_TEXT, SET_DELETE_TODO } from '../actions';
+import { SET_TODOS, SET_FILTER, SET_ADD_TODO, SET_INPUT_TEXT, SET_DELETE_TODO, SET_TODO_UPDATING, SET_UPDATE_TODO } from '../actions';
 import { FILTER } from '../consts';
 
 const initialState = {
   todos: null,
   filter: FILTER.ALL,
-  inputText: ''
+  inputText: '',
+  updating: null,
+  updatingText: null
 }
 
 const todoList = (state = initialState, action) => {
@@ -19,6 +21,10 @@ const todoList = (state = initialState, action) => {
       return { ...state, inputText: action.inputText };
     case SET_DELETE_TODO:
       return { ...state, todos: state.todos.filter(t => t.id !== action.id) };
+    case SET_TODO_UPDATING:
+      return { ...state, updating: action.id, updatingText: action.text };
+    case SET_UPDATE_TODO:
+      return { ...state, todos: state.todos.map(t => t.id !== action.id ? t : { ...t, text: action.text }) };
     default:
       return state;
   }
