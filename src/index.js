@@ -8,7 +8,7 @@ import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
 import App from './components/App';
-import todoReducer from './reducers';
+import reducers from './reducers';
 import rootSaga from './sagas';
 
 import './theme.scss';
@@ -21,7 +21,7 @@ const logger = createLogger({
 
 const sagaMiddleware = createSagaMiddleware()
 
-let store = createStore(todoReducer, applyMiddleware(logger, sagaMiddleware));
+let store = createStore(reducers, applyMiddleware(logger, sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 

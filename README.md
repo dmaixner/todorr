@@ -22,7 +22,7 @@ This app is using backend with API described here: [TODO-BE](https://github.com/
 
 ## Features
 
-- [ ] create item
+- [x] create item
 - [x] read items
 - [ ] update item
 - [ ] delete item (with confirmation)
@@ -43,5 +43,7 @@ This app is using backend with API described here: [TODO-BE](https://github.com/
 - [ ] tags
 - [ ] lists
 - [ ] users
-- [ ] accessibility
+- [ ] dark mode
+- [ ] i18n
+- [ ] a11y
 - [ ] IE support?

@@ -19,7 +19,7 @@ function TodoList({ allCount, activeCount, filter, filteredTodos, setFilter, fet
                   </span>
                 </div>
                 <div className="control">
-                  <button className="button is-primary" onClick={() => fetchAddTodo(inputText)}>
+                  <button className="button is-primary">
                     <span className="icon is-left">
                       <i className="fas fa-plus" aria-hidden="true"></i>
                     </span>

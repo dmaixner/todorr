@@ -33,3 +33,9 @@ export const setInputText = (inputText) => ({
   inputText
 });
 
+export const SET_ALERT = 'SET_ALERT';
+export const setAlert = (text, style) => ({
+  type: SET_ALERT,
+  text,
+  style
+});

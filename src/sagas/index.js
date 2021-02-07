@@ -1,5 +1,6 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
-import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText } from '../actions';
+import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert } from '../actions';
+import { ALERT } from "../consts";
 
 const fetchTodosFromApi = () => {
   return fetch("http://localhost:8080/todos")
@@ -31,9 +32,14 @@ const fetchAddTodoFromApi = (text) => {
 }
 
 function* fetchAddTodo(action) {
-  const todo = yield call(fetchAddTodoFromApi, action.text);
-  yield put(setInputText(''));
-  yield put(setAddTodo(todo));
+  if (action.text && action.text.trim()) {
+    const actionText = action.text.trim();
+    const todo = yield call(fetchAddTodoFromApi, actionText);
+    yield put(setInputText(''));
+    yield put(setAddTodo(todo));
+  } else {
+    yield put(setAlert('Please enter TODO text first.', ALERT.ERROR));
+  }
 }
 
 function* watchFetchAddTodo() {
