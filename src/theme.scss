@@ -19,3 +19,7 @@ $text-strong: $grey-dark;
   text-decoration: line-through;
   color: $grey-light !important;
 }
+
+.todoitem {
+  word-break: break-all;
+}
