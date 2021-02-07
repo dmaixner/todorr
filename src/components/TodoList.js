@@ -10,12 +10,23 @@ function TodoList({ allCount, activeCount, filter, filteredTodos, setFilter, fet
         </div>
         <form onSubmit={() => fetchAddTodo(inputText)}>
           <div className="panel-block">
-            <p className="control has-icons-left">
-              <input className="input is-primary" value={inputText} type="text" onChange={(e) => setInputText(e.target.value)} placeholder="what needs to be done" />
-              <span className="icon is-left">
-                <i className="fas fa-plus" aria-hidden="true"></i>
-              </span>
-            </p>
+            <div className="control">
+              <div className="field has-addons">
+                <div className="control has-icons-left is-expanded">
+                  <input className="input is-primary" value={inputText} type="text" onChange={(e) => setInputText(e.target.value)} placeholder="what needs to be done" />
+                  <span className="icon is-left">
+                    <i className="fas fa-plus" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div className="control">
+                  <button className="button is-primary" onClick={() => fetchAddTodo(inputText)}>
+                    <span className="icon is-left">
+                      <i className="fas fa-plus" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
         <div className="panel-tabs">
@@ -32,7 +43,7 @@ function TodoList({ allCount, activeCount, filter, filteredTodos, setFilter, fet
     );
   } else {
     return (
-      <div className="has-text-centered">
+      <div className="section is-large has-text-centered">
         <div><h3 className="title is-3 has-text-primary">Loading data... While waiting, enjoy some random cat. :)</h3></div>
         <div className="media pt-4 pb-4">
           <div className="media-content">
