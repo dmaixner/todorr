@@ -3,14 +3,33 @@ export const fetchTodos = () => ({
   type: FETCH_TODOS
 });
 
-export const FILTER_TODOS = 'FILTER_TODOS';
-export const filterTodos = (filter) => ({
-  type: FILTER_TODOS,
-  filter
-});
-
 export const SET_TODOS = 'SET_TODOS';
 export const setTodos = (todos) => ({
   type: SET_TODOS,
   todos
 });
+
+export const FETCH_ADD_TODO = 'FETCH_ADD_TODO';
+export const fetchAddTodo = (text) => ({
+  type: FETCH_ADD_TODO,
+  text
+});
+
+export const SET_ADD_TODO = 'SET_ADD_TODO';
+export const setAddTodo = (todo) => ({
+  type: SET_ADD_TODO,
+  todo
+});
+
+export const SET_FILTER = 'SET_FILTER';
+export const setFilter = (filter) => ({
+  type: SET_FILTER,
+  filter
+});
+
+export const SET_INPUT_TEXT = 'SET_INPUT_TEXT';
+export const setInputText = (inputText) => ({
+  type: SET_INPUT_TEXT,
+  inputText
+});
+

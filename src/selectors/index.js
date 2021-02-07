@@ -3,6 +3,7 @@ import { FILTER } from '../consts';
 
 export const getTodos = (state) => state.todos;
 export const getFilter = (state) => state.filter;
+export const getInputText = (state) => state.inputText;
 
 export const getAllCount = createSelector(getTodos, (todos) => todos.length);
 export const getActiveCount = createSelector(getTodos, (todos) => todos.filter(t => !t.completed).length);
