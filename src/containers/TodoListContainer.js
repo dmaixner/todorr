@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchAddTodo, setFilter, setInputText } from '../actions';
+import { fetchAddTodo, setFilter, setInputText, fetchSwitchTodo } from '../actions';
 import TodoList from '../components/TodoList';
 import { getTodos, getAllCount, getActiveCount, getFilter, getFilteredTodos, getInputText } from '../selectors';
 
@@ -20,7 +20,8 @@ const mapStateToProps = (state) => {
 const actions = {
   fetchAddTodo,
   setFilter,
-  setInputText
+  setInputText,
+  fetchSwitchTodo
 }
 
 const TodoListContainer = connect(

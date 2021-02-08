@@ -1,10 +1,10 @@
 import { FILTER } from "../consts";
 import TodoItemContainer from "../containers/TodoItemContainer";
 
-function TodoList({ allCount, activeCount, filter, filteredTodos, setFilter, fetchAddTodo, setInputText, inputText }) {
+function TodoList({ allCount, activeCount, filter, filteredTodos, setFilter, fetchAddTodo, setInputText, inputText, fetchSwitchTodo }) {
   if (filteredTodos) {
     return (
-      <nav className="panel is-primary">
+      <div className="panel is-primary">
         <div className="panel-heading has-text-centered">
           ToDo RR
         </div>
@@ -48,12 +48,62 @@ function TodoList({ allCount, activeCount, filter, filteredTodos, setFilter, fet
             Completed <span className="tag is-primary is-rounded">{allCount - activeCount}</span>
           </a>
         </div>
+        <div className="panel-block">
+          <div className="control">
+            <div className="field is-grouped">
+              {
+                filteredTodos.length > 0 && filter !== FILTER.COMPLETED ? (
+                  <div className="control">
+                    <button
+                      className="button is-small is-success is-light"
+                      title="complete all visible ToDo items"
+                      onClick={() => filteredTodos.forEach(t => { if (!t.completed) { fetchSwitchTodo(t.id, true) } })}
+                    >
+                      <span className="icon">
+                        <i className="fas fa-check-double" aria-hidden="true"></i>
+                      </span>
+                      <span>Complete visible</span>
+                    </button>
+                  </div>
+                ) : null
+              }
+              {
+                filteredTodos.length > 0 && filter !== FILTER.ACTIVE ? (
+                  <div className="control">
+                    <button
+                      className="button is-small"
+                      title="incomplete all visible ToDo items"
+                      onClick={() => filteredTodos.forEach(t => { if (t.completed) { fetchSwitchTodo(t.id, false) } })}
+                    >
+                      <span className="icon">
+                        <i className="fas fa-check-double" aria-hidden="true"></i>
+                      </span>
+                      <span>Incomplete visible</span>
+                    </button>
+                  </div>
+                ) : null
+              }
+              {
+                allCount - activeCount > 0 ? (
+                  <div className="control">
+                    <button className="button is-small is-danger is-light" title="delete completed ToDo items">
+                      <span className="icon">
+                        <i className="fas fa-dumpster fa-lg" aria-hidden="true"></i>
+                      </span>
+                      <span>Delete completed</span>
+                    </button>
+                  </div>
+                ) : null
+              }
+            </div>
+          </div>
+        </div>
         {
           filteredTodos.map((todo) =>
             <TodoItemContainer key={todo.id} todo={todo} />
           )
         }
-      </nav >
+      </div>
     );
   } else {
     return (

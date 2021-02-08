@@ -1,4 +1,4 @@
-import { all, call, takeLatest, put } from 'redux-saga/effects';
+import { all, call, takeLatest, takeEvery, put } from 'redux-saga/effects';
 import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo, FETCH_UPDATE_TODO, setTodoUpdating, setUpdateTodo, FETCH_SWITCH_TODO, setSwitchTodo } from '../actions';
 import { ALERT } from "../consts";
 
@@ -108,7 +108,7 @@ function* fetchSwitchTodo(action) {
 }
 
 function* watchFetchSwitchTodo() {
-  yield takeLatest(FETCH_SWITCH_TODO, fetchSwitchTodo);
+  yield takeEvery(FETCH_SWITCH_TODO, fetchSwitchTodo);
 }
 
 const todosSagas = [
