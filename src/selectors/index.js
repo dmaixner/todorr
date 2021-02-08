@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { FILTER } from '../consts';
 
+export const getTodosLoaded = (state) => state.todoList.todosLoaded;
 export const getTodos = (state) => state.todoList.todos;
 export const getFilter = (state) => state.todoList.filter;
 export const getInputText = (state) => state.todoList.inputText;

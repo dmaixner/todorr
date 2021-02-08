@@ -3,7 +3,7 @@ import TodoListFilterContainer from "../containers/TodoListFilterContainer";
 import TodoListToolbarContainer from "../containers/TodoListToolbarContainer";
 import TodoItemContainer from "../containers/TodoItemContainer";
 
-function TodoList({ filteredTodos }) {
+function TodoList({ todosLoaded, filteredTodos }) {
   if (filteredTodos) {
     return (
       <div className="panel is-primary">
@@ -20,7 +20,7 @@ function TodoList({ filteredTodos }) {
         }
       </div>
     );
-  } else {
+  } else if (!todosLoaded) {
     return (
       <div className="section is-large has-text-centered">
         <div><h3 className="title is-3 has-text-primary">Loading data... While waiting, enjoy some random cat. :)</h3></div>
@@ -32,6 +32,8 @@ function TodoList({ filteredTodos }) {
         <div><progress className="progress is-small is-primary" max="100"></progress></div>
       </div>
     )
+  } else {
+    return null;
   }
 }
 

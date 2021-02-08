@@ -1,17 +1,23 @@
 import { all, call, takeLatest, takeEvery, put } from 'redux-saga/effects';
-import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo, FETCH_UPDATE_TODO, setTodoUpdating, setUpdateTodo, FETCH_SWITCH_TODO, setSwitchTodo, fetchDeleteTodo as fetchDeleteTodoAction, FETCH_DELETE_COMPLETED } from '../actions';
+import { setTodosLoaded, FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo, FETCH_UPDATE_TODO, setTodoUpdating, setUpdateTodo, FETCH_SWITCH_TODO, setSwitchTodo, fetchDeleteTodo as fetchDeleteTodoAction, FETCH_DELETE_COMPLETED } from '../actions';
 import { ALERT } from "../consts";
 
 const fetchTodosFromApi = () => {
   return fetch("http://localhost:8080/todos")
     .then(res => res.json())
     .then(json => json)
-    .catch(err => { });
+    .catch(err => null);
 }
 
 function* fetchTodos() {
+  yield put(setTodosLoaded(false));
   const todos = yield call(fetchTodosFromApi);
-  yield put(setTodos(todos));
+  if (todos) {
+    yield put(setTodos(todos));
+  } else {
+    yield put(setAlert('Error while trying to connect to backend service. Please reload this app, once backend is available.', ALERT.ERROR));
+  }
+  yield put(setTodosLoaded(true));
 }
 
 function* watchFetchTodos() {

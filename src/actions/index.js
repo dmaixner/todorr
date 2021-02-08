@@ -1,3 +1,9 @@
+export const SET_TODOS_LOADED = 'SET_TODOS_LOADED';
+export const setTodosLoaded = (loaded) => ({
+  type: SET_TODOS_LOADED,
+  loaded
+});
+
 export const FETCH_TODOS = 'FETCH_TODOS';
 export const fetchTodos = () => ({
   type: FETCH_TODOS

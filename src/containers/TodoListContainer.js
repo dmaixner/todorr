@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import TodoList from '../components/TodoList';
-import { getTodos, getFilteredTodos } from '../selectors';
+import { getTodosLoaded, getTodos, getFilteredTodos } from '../selectors';
 
 const mapStateToProps = (state) => {
-  if (getTodos(state)) {
-    return {
-      filteredTodos: getFilteredTodos(state),
-    }
-  } else {
-    return {}
+  let props = {
+    todosLoaded: getTodosLoaded(state)
   }
+  if (getTodos(state)) {
+    props.filteredTodos = getFilteredTodos(state);
+  }
+  return props;
 }
 
 const TodoListContainer = connect(
