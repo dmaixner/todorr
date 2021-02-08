@@ -11,7 +11,7 @@ function Alert({ text, style, setAlert }) {
     return (
       <div className={"message is-light " + styleClass}>
         <div className={"message-body is-light has-text-centered " + styleClass}>
-          <button className="delete is-pulled-right" onClick={() => setAlert(null, ALERT.SUCCESS)}></button>
+          <button className="delete is-pulled-right" title="close alert" onClick={() => setAlert(null, ALERT.SUCCESS)}></button>
           {text}
         </div>
       </div>

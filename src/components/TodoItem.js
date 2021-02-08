@@ -4,7 +4,7 @@ function TodoItem({ todo, updating, updatingText, fetchDeleteTodo, setTodoUpdati
       <div className="control">
         <div className="columns is-vcentered is-mobile">
           <div className="column is-narrow">
-            <button className={"button is-small" + (todo.completed ? " is-success is-light" : "")} onClick={() => fetchSwitchTodo(todo.id, !todo.completed)}>
+            <button className={"button is-small" + (todo.completed ? " is-success is-light" : "")} onClick={() => fetchSwitchTodo(todo.id, !todo.completed)} title="switch ToDo item state">
               <span className="icon">
                 <i className="fas fa-check" aria-hidden="true"></i>
               </span>
@@ -35,12 +35,12 @@ function TodoItem({ todo, updating, updatingText, fetchDeleteTodo, setTodoUpdati
           </div>
           <div className="column is-narrow">
             <div className="buttons are-small">
-              <button className="button" onClick={() => setTodoUpdating(todo.id, todo.text)}>
+              <button className="button" onClick={() => setTodoUpdating(todo.id, todo.text)} title="update ToDo item">
                 <span className="icon">
                   <i className="far fa-edit fa-lg" aria-hidden="true"></i>
                 </span>
               </button>
-              <button className="button is-danger is-light" onClick={() => fetchDeleteTodo(todo.id)}>
+              <button className="button is-danger is-light" onClick={() => fetchDeleteTodo(todo.id)} title="delete ToDo item">
                 <span className="icon">
                   <i className="far fa-trash-alt fa-lg" aria-hidden="true"></i>
                 </span>
