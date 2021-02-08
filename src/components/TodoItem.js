@@ -1,10 +1,10 @@
-function TodoItem({ todo, updating, updatingText, fetchDeleteTodo, setTodoUpdating, fetchUpdateTodo }) {
+function TodoItem({ todo, updating, updatingText, fetchDeleteTodo, setTodoUpdating, fetchUpdateTodo, fetchSwitchTodo }) {
   return (
     <label className="panel-block is-unselectable">
       <div className="control">
         <div className="columns is-vcentered is-mobile">
           <div className="column is-narrow">
-            <button className={"button is-small" + (todo.completed ? " is-success is-light" : "")}>
+            <button className={"button is-small" + (todo.completed ? " is-success is-light" : "")} onClick={() => fetchSwitchTodo(todo.id, !todo.completed)}>
               <span className="icon">
                 <i className="fas fa-check" aria-hidden="true"></i>
               </span>

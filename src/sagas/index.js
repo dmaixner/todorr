@@ -1,5 +1,5 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
-import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo, FETCH_UPDATE_TODO, setTodoUpdating, setUpdateTodo } from '../actions';
+import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo, FETCH_UPDATE_TODO, setTodoUpdating, setUpdateTodo, FETCH_SWITCH_TODO, setSwitchTodo } from '../actions';
 import { ALERT } from "../consts";
 
 const fetchTodosFromApi = () => {
@@ -92,12 +92,32 @@ function* watchFetchUpdateTodo() {
   yield takeLatest(FETCH_UPDATE_TODO, fetchUpdateTodo);
 }
 
+const fetchSwitchTodoFromApi = (id, completed) => {
+  const method = completed ? 'complete' : 'incomplete';
+  return fetch("http://localhost:8080/todos/" + id + '/' + method, {
+    method: "POST"
+  })
+    .then(res => res.json())
+    .then(json => json)
+    .catch(err => { });
+}
+
+function* fetchSwitchTodo(action) {
+  const todo = yield call(fetchSwitchTodoFromApi, action.id, action.completed);
+  yield put(setSwitchTodo(todo.id, todo.completed));
+}
+
+function* watchFetchSwitchTodo() {
+  yield takeLatest(FETCH_SWITCH_TODO, fetchSwitchTodo);
+}
+
 const todosSagas = [
   fetchTodos(),
   watchFetchTodos(),
   watchFetchAddTodo(),
   watchFetchDeleteTodo(),
-  watchFetchUpdateTodo()
+  watchFetchUpdateTodo(),
+  watchFetchSwitchTodo()
 ];
 
 export default function* rootSaga() {

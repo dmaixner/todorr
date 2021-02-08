@@ -72,3 +72,18 @@ export const setUpdateTodo = (id, text) => ({
   id,
   text
 });
+
+export const FETCH_SWITCH_TODO = 'FETCH_SWITCH_TODO';
+export const fetchSwitchTodo = (id, completed) => ({
+  type: FETCH_SWITCH_TODO,
+  id,
+  completed
+});
+
+export const SET_SWITCH_TODO = 'SET_SWITCH_TODO';
+export const setSwitchTodo = (id, completed) => ({
+  type: SET_SWITCH_TODO,
+  id,
+  completed
+});
+

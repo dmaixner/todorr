@@ -24,9 +24,9 @@ This app is using backend with API described here: [TODO-BE](https://github.com/
 
 - [x] create item
 - [x] read items
-- [ ] update item
+- [x] update item
 - [x] delete item
-- [ ] complete/incomplete item
+- [x] complete/incomplete item
 - [x] filter items to all/active/completed
 - [x] display number of all/active/completed
 - [ ] complete all visible at once

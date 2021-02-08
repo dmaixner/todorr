@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TodoItem from '../components/TodoItem';
-import { fetchDeleteTodo, setTodoUpdating, fetchUpdateTodo } from '../actions';
+import { fetchDeleteTodo, setTodoUpdating, fetchUpdateTodo, fetchSwitchTodo } from '../actions';
 import { getTodoUpdating, getTodoUpdatingText } from '../selectors';
 
 const mapStateToProps = (state, ownProps) => {
@@ -13,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 const actions = {
   fetchDeleteTodo,
   setTodoUpdating,
-  fetchUpdateTodo
+  fetchUpdateTodo,
+  fetchSwitchTodo
 }
 
 const TodoItemContainer = connect(

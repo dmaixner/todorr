@@ -1,4 +1,4 @@
-import { SET_TODOS, SET_FILTER, SET_ADD_TODO, SET_INPUT_TEXT, SET_DELETE_TODO, SET_TODO_UPDATING, SET_UPDATE_TODO } from '../actions';
+import { SET_TODOS, SET_FILTER, SET_ADD_TODO, SET_INPUT_TEXT, SET_DELETE_TODO, SET_TODO_UPDATING, SET_UPDATE_TODO, SET_SWITCH_TODO } from '../actions';
 import { FILTER } from '../consts';
 
 const initialState = {
@@ -46,6 +46,11 @@ const todoList = (state = initialState, action) => {
       return {
         ...state,
         todos: state.todos.map(t => t.id !== action.id ? t : { ...t, text: action.text })
+      };
+    case SET_SWITCH_TODO:
+      return {
+        ...state,
+        todos: state.todos.map(t => t.id !== action.id ? t : { ...t, completed: action.completed })
       };
     default:
       return state;
