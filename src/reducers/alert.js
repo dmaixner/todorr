@@ -3,7 +3,7 @@ import { ALERT } from '../consts';
 
 const initialState = {
   text: null,
-  style: ALERT.SUCCESS
+  style: ALERT.WARNING
 }
 
 const alert = (state = initialState, action) => {

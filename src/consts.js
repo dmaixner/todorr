@@ -5,6 +5,6 @@ export const FILTER = Object.freeze({
 });
 
 export const ALERT = Object.freeze({
-  SUCCESS: 1,
+  WARNING: 1,
   ERROR: 2
 });
