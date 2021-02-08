@@ -3,11 +3,18 @@ function TodoItem({ todo, updating, updatingText, fetchDeleteTodo, setTodoUpdati
     <label className="panel-block is-unselectable">
       <div className="control">
         <div className="columns is-vcentered is-mobile">
-          <div className={"column has-text-left todoitem" + (todo.completed ? " strikethrough" : "")}>
+          <div className="column is-narrow">
+            <button className={"button is-small" + (todo.completed ? " is-success is-light" : "")}>
+              <span className="icon">
+                <i className="fas fa-check" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <div className={"column has-text-left todoitem" + (todo.completed ? " strikethrough" : "")} onClick={(e) => { e.preventDefault(); }}>
             {
               updating ? (
                 <form onSubmit={() => fetchUpdateTodo(todo.id, updatingText)}>
-                  <div className="control has-icons-left is-expanded">
+                  <div className="control has-icons-left">
                     <input
                       className="input is-primary"
                       value={updatingText}
@@ -28,17 +35,12 @@ function TodoItem({ todo, updating, updatingText, fetchDeleteTodo, setTodoUpdati
           </div>
           <div className="column is-narrow">
             <div className="buttons are-small">
-              <button className="button is-success is-light">
-                <span className="icon">
-                  <i className="fas fa-check" aria-hidden="true"></i>
-                </span>
-              </button>
-              <button className="button" onClick={() => setTodoUpdating(todo.id, todo.text)} >
+              <button className="button" onClick={() => setTodoUpdating(todo.id, todo.text)}>
                 <span className="icon">
                   <i className="far fa-edit fa-lg" aria-hidden="true"></i>
                 </span>
               </button>
-              <button className="button is-danger is-light" onClick={() => fetchDeleteTodo(todo.id)} >
+              <button className="button is-danger is-light" onClick={() => fetchDeleteTodo(todo.id)}>
                 <span className="icon">
                   <i className="far fa-trash-alt fa-lg" aria-hidden="true"></i>
                 </span>
