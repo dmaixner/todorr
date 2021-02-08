@@ -87,3 +87,7 @@ export const setSwitchTodo = (id, completed) => ({
   completed
 });
 
+export const FETCH_DELETE_COMPLETED = 'FETCH_DELETE_COMPLETED';
+export const fetchDeleteCompleted = () => ({
+  type: FETCH_DELETE_COMPLETED
+});

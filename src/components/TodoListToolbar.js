@@ -1,6 +1,6 @@
 import { FILTER } from "../consts";
 
-function TodoListToolbar({ allCount, activeCount, filter, filteredTodos, fetchSwitchTodo }) {
+function TodoListToolbar({ allCount, activeCount, filter, filteredTodos, fetchSwitchTodo, fetchDeleteCompleted }) {
   return (
     <div className="panel-block">
       <div className="control">
@@ -36,6 +36,7 @@ function TodoListToolbar({ allCount, activeCount, filter, filteredTodos, fetchSw
               className="button is-small is-danger is-light"
               title="delete completed ToDo items"
               disabled={allCount - activeCount === 0}
+              onClick={() => fetchDeleteCompleted()}
             >
               <span className="icon">
                 <i className="fas fa-dumpster fa-lg" aria-hidden="true"></i>

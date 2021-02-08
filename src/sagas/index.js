@@ -1,5 +1,5 @@
 import { all, call, takeLatest, takeEvery, put } from 'redux-saga/effects';
-import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo, FETCH_UPDATE_TODO, setTodoUpdating, setUpdateTodo, FETCH_SWITCH_TODO, setSwitchTodo } from '../actions';
+import { FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo, FETCH_UPDATE_TODO, setTodoUpdating, setUpdateTodo, FETCH_SWITCH_TODO, setSwitchTodo, fetchDeleteTodo as fetchDeleteTodoAction, FETCH_DELETE_COMPLETED } from '../actions';
 import { ALERT } from "../consts";
 
 const fetchTodosFromApi = () => {
@@ -61,7 +61,7 @@ function* fetchDeleteTodo(action) {
 }
 
 function* watchFetchDeleteTodo() {
-  yield takeLatest(FETCH_DELETE_TODO, fetchDeleteTodo);
+  yield takeEvery(FETCH_DELETE_TODO, fetchDeleteTodo);
 }
 
 const fetchUpdateTodoFromApi = (id, text) => {
@@ -111,13 +111,32 @@ function* watchFetchSwitchTodo() {
   yield takeEvery(FETCH_SWITCH_TODO, fetchSwitchTodo);
 }
 
+const fetchGetCompletedFromApi = () => {
+  return fetch("http://localhost:8080/todos/completed")
+    .then(res => res.json())
+    .then(json => json)
+    .catch(err => { });
+}
+
+function* fetchDeleteCompleted() {
+  const todos = yield call(fetchGetCompletedFromApi);
+  for (const todo of todos) {
+    yield put(fetchDeleteTodoAction(todo.id));
+  }
+}
+
+function* watchFetchDeleteCompleted() {
+  yield takeLatest(FETCH_DELETE_COMPLETED, fetchDeleteCompleted);
+}
+
 const todosSagas = [
   fetchTodos(),
   watchFetchTodos(),
   watchFetchAddTodo(),
   watchFetchDeleteTodo(),
   watchFetchUpdateTodo(),
-  watchFetchSwitchTodo()
+  watchFetchSwitchTodo(),
+  watchFetchDeleteCompleted()
 ];
 
 export default function* rootSaga() {

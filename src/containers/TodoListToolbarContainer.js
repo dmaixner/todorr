@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchSwitchTodo } from '../actions';
+import { fetchSwitchTodo, fetchDeleteCompleted } from '../actions';
 import TodoListToolbar from '../components/TodoListToolbar';
 import { getTodos, getAllCount, getActiveCount, getFilter, getFilteredTodos } from '../selectors';
 
@@ -17,7 +17,8 @@ const mapStateToProps = (state) => {
 }
 
 const actions = {
-  fetchSwitchTodo
+  fetchSwitchTodo,
+  fetchDeleteCompleted
 }
 
 const TodoListToolbarContainer = connect(
