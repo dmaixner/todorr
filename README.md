@@ -2,6 +2,8 @@
 
 Simple ToDo app written using [React](https://reactjs.org), [Redux](https://redux.js.org), [Redux Saga](https://redux-saga.js.org) and [Reselect](https://github.com/reduxjs/reselect) with UI using [Bulma](https://bulma.io).
 
+![manual](todorr.png "manual")
+
 ## Install
 
 ```
