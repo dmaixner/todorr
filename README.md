@@ -34,8 +34,8 @@ This app is using backend with API described here: [TODO-BE](https://github.com/
 - [x] complete all visible at once
 - [x] delete all completed at once
 - [x] responsive
-- [ ] missing backend
-- [ ] concurrency
+- [x] missing backend
+- [x] concurrency
 
 ## Ideas
 
