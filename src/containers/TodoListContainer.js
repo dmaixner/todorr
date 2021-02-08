@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setFilter, fetchSwitchTodo } from '../actions';
+import { fetchSwitchTodo } from '../actions';
 import TodoList from '../components/TodoList';
 import { getTodos, getAllCount, getActiveCount, getFilter, getFilteredTodos } from '../selectors';
 
@@ -17,7 +17,6 @@ const mapStateToProps = (state) => {
 }
 
 const actions = {
-  setFilter,
   fetchSwitchTodo
 }
 
