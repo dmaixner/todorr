@@ -1,14 +1,10 @@
 import { connect } from 'react-redux';
-import { fetchSwitchTodo } from '../actions';
 import TodoList from '../components/TodoList';
-import { getTodos, getAllCount, getActiveCount, getFilter, getFilteredTodos } from '../selectors';
+import { getTodos, getFilteredTodos } from '../selectors';
 
 const mapStateToProps = (state) => {
   if (getTodos(state)) {
     return {
-      allCount: getAllCount(state),
-      activeCount: getActiveCount(state),
-      filter: getFilter(state),
       filteredTodos: getFilteredTodos(state),
     }
   } else {
@@ -16,13 +12,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-const actions = {
-  fetchSwitchTodo
-}
-
 const TodoListContainer = connect(
-  mapStateToProps,
-  actions
+  mapStateToProps
 )(TodoList);
 
 export default TodoListContainer;
