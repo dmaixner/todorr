@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { fetchAddTodo, setFilter, setInputText, fetchSwitchTodo } from '../actions';
+import { setFilter, fetchSwitchTodo } from '../actions';
 import TodoList from '../components/TodoList';
-import { getTodos, getAllCount, getActiveCount, getFilter, getFilteredTodos, getInputText } from '../selectors';
+import { getTodos, getAllCount, getActiveCount, getFilter, getFilteredTodos } from '../selectors';
 
 const mapStateToProps = (state) => {
   if (getTodos(state)) {
@@ -10,7 +10,6 @@ const mapStateToProps = (state) => {
       activeCount: getActiveCount(state),
       filter: getFilter(state),
       filteredTodos: getFilteredTodos(state),
-      inputText: getInputText(state)
     }
   } else {
     return {}
@@ -18,9 +17,7 @@ const mapStateToProps = (state) => {
 }
 
 const actions = {
-  fetchAddTodo,
   setFilter,
-  setInputText,
   fetchSwitchTodo
 }
 
