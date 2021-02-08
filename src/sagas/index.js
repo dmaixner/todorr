@@ -9,13 +9,17 @@ const fetchTodosFromApi = () => {
     .catch(err => null);
 }
 
+function backendError() {
+  return setAlert('Error while trying to connect to backend service. Please, reload the page once backend service is available.', ALERT.ERROR);
+}
+
 function* fetchTodos() {
   yield put(setTodosLoaded(false));
   const todos = yield call(fetchTodosFromApi);
   if (todos) {
     yield put(setTodos(todos));
   } else {
-    yield put(setAlert('Error while trying to connect to backend service. Please reload this app, once backend is available.', ALERT.ERROR));
+    yield put(backendError());
   }
   yield put(setTodosLoaded(true));
 }
@@ -34,15 +38,19 @@ const fetchAddTodoFromApi = (text) => {
   })
     .then(res => res.json())
     .then(json => json)
-    .catch(err => { });
+    .catch(err => null);
 }
 
 function* fetchAddTodo(action) {
   if (action.text && action.text.trim()) {
     const actionText = action.text.trim();
     const todo = yield call(fetchAddTodoFromApi, actionText);
-    yield put(setInputText(''));
-    yield put(setAddTodo(todo));
+    if (todo) {
+      yield put(setInputText(''));
+      yield put(setAddTodo(todo));
+    } else {
+      yield put(backendError());
+    }
   } else {
     yield put(setAlert('Please enter TODO text first.', ALERT.ERROR));
   }
@@ -56,14 +64,20 @@ const fetchDeleteTodoFromApi = (id) => {
   return fetch("http://localhost:8080/todos/" + id, {
     method: "DELETE"
   })
-    .then(res => res.json())
-    .then(json => json)
-    .catch(err => { });
+    .then(res => res.ok)
+    .catch(err => null);
 }
 
 function* fetchDeleteTodo(action) {
-  yield call(fetchDeleteTodoFromApi, action.id);
-  yield put(setDeleteTodo(action.id));
+  const ok = yield call(fetchDeleteTodoFromApi, action.id);
+  if (ok === null) {
+    yield put(backendError());
+  } else {
+    if (!ok) {
+      yield put(setAlert('Unable to delete this ToDo item at backend service. It was probably already deleted.', ALERT.WARNING));
+    }
+    yield put(setDeleteTodo(action.id));
+  }
 }
 
 function* watchFetchDeleteTodo() {
@@ -80,15 +94,19 @@ const fetchUpdateTodoFromApi = (id, text) => {
   })
     .then(res => res.json())
     .then(json => json)
-    .catch(err => { });
+    .catch(err => null);
 }
 
 function* fetchUpdateTodo(action) {
   if (action.text && action.text.trim()) {
     const actionText = action.text.trim();
     const todo = yield call(fetchUpdateTodoFromApi, action.id, actionText);
-    yield put(setTodoUpdating(null, ''));
-    yield put(setUpdateTodo(todo.id, todo.text));
+    if (todo) {
+      yield put(setTodoUpdating(null, ''));
+      yield put(setUpdateTodo(todo.id, todo.text));
+    } else {
+      yield put(backendError());
+    }
   } else {
     yield put(setAlert('Please enter TODO text first.', ALERT.ERROR));
   }
@@ -103,14 +121,27 @@ const fetchSwitchTodoFromApi = (id, completed) => {
   return fetch("http://localhost:8080/todos/" + id + '/' + method, {
     method: "POST"
   })
-    .then(res => res.json())
-    .then(json => json)
-    .catch(err => { });
+    .then(res => res.text())
+    .then(text => {
+      try {
+        return JSON.parse(text);
+      } catch (err) {
+        return "";
+      }
+    })
+    .catch(err => null);
 }
 
 function* fetchSwitchTodo(action) {
   const todo = yield call(fetchSwitchTodoFromApi, action.id, action.completed);
-  yield put(setSwitchTodo(todo.id, todo.completed));
+  if (todo === null) {
+    yield put(backendError());
+  } else if (todo === "") {
+    yield put(setAlert('Unable to switch state of this ToDo item at backend service. It was probably already switched.', ALERT.WARNING));
+    yield put(setSwitchTodo(action.id, action.completed));
+  } else {
+    yield put(setSwitchTodo(todo.id, todo.completed));
+  }
 }
 
 function* watchFetchSwitchTodo() {
@@ -121,13 +152,17 @@ const fetchGetCompletedFromApi = () => {
   return fetch("http://localhost:8080/todos/completed")
     .then(res => res.json())
     .then(json => json)
-    .catch(err => { });
+    .catch(err => null);
 }
 
 function* fetchDeleteCompleted() {
   const todos = yield call(fetchGetCompletedFromApi);
-  for (const todo of todos) {
-    yield put(fetchDeleteTodoAction(todo.id));
+  if (todos) {
+    for (const todo of todos) {
+      yield put(fetchDeleteTodoAction(todo.id));
+    }
+  } else {
+    yield put(backendError());
   }
 }
 
