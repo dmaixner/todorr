@@ -12,19 +12,41 @@ const initialState = {
 const todoList = (state = initialState, action) => {
   switch (action.type) {
     case SET_TODOS:
-      return { ...state, todos: action.todos };
+      return {
+        ...state,
+        todos: action.todos
+      };
     case SET_FILTER:
-      return { ...state, filter: action.filter };
+      return {
+        ...state,
+        filter: action.filter
+      };
     case SET_ADD_TODO:
-      return { ...state, todos: [action.todo, ...state.todos] };
+      return {
+        ...state,
+        todos: [action.todo, ...state.todos]
+      };
     case SET_INPUT_TEXT:
-      return { ...state, inputText: action.inputText };
+      return {
+        ...state,
+        inputText: action.inputText
+      };
     case SET_DELETE_TODO:
-      return { ...state, todos: state.todos.filter(t => t.id !== action.id) };
+      return {
+        ...state,
+        todos: state.todos.filter(t => t.id !== action.id)
+      };
     case SET_TODO_UPDATING:
-      return { ...state, updating: action.id, updatingText: action.text };
+      return {
+        ...state,
+        updating: action.id,
+        updatingText: action.text
+      };
     case SET_UPDATE_TODO:
-      return { ...state, todos: state.todos.map(t => t.id !== action.id ? t : { ...t, text: action.text }) };
+      return {
+        ...state,
+        todos: state.todos.map(t => t.id !== action.id ? t : { ...t, text: action.text })
+      };
     default:
       return state;
   }
