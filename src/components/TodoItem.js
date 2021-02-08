@@ -1,6 +1,6 @@
 function TodoItem({ todo, updating, updatingText, fetchDeleteTodo, setTodoUpdating, fetchUpdateTodo, fetchSwitchTodo }) {
   return (
-    <label className="panel-block is-unselectable">
+    <label className="panel-block is-unselectable" onClick={(e) => { e.preventDefault(); }}>
       <div className="control">
         <div className="columns is-vcentered is-mobile">
           <div className="column is-narrow">
@@ -10,7 +10,7 @@ function TodoItem({ todo, updating, updatingText, fetchDeleteTodo, setTodoUpdati
               </span>
             </button>
           </div>
-          <div className={"column has-text-left todoitem" + (todo.completed ? " strikethrough" : "")} onClick={(e) => { e.preventDefault(); }}>
+          <div className={"column has-text-left todoitem" + (todo.completed ? " strikethrough" : "")}>
             {
               updating ? (
                 <form onSubmit={() => fetchUpdateTodo(todo.id, updatingText)}>

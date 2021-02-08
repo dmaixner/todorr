@@ -35,8 +35,9 @@ This app is using backend with API described here: [TODO-BE](https://github.com/
 - [ ] missing backend
 - [ ] concurrency
 
-## Nice to have
+## Ideas
 
+- [ ] select items to complete/incomplete/delete
 - [ ] tests
 - [ ] searching
 - [ ] sorting
