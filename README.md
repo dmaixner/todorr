@@ -4,6 +4,10 @@ Simple ToDo app written using [React](https://reactjs.org), [Redux](https://redu
 
 ![manual](todorr.png "manual")
 
+## Demo
+
+You can find running demo at http://todorr.maixner.eu.
+
 ## Install
 
 ```
@@ -18,9 +22,9 @@ npm start
 
 Open http://localhost:3000 in browser.
 
-## Dependencies
+## Data
 
-This app is using backend with API described here: [TODO-BE](https://github.com/morosystems/todo-be).
+This app is using localstorage to store all data. This means, all entered data is only stored on the device you are using to display the app and is not shared anywhere.
 
 ## Features
 
@@ -36,6 +40,7 @@ This app is using backend with API described here: [TODO-BE](https://github.com/
 - [x] responsive
 - [x] missing backend
 - [x] concurrency
+- [x] localstorage backend
 
 ## Ideas
 

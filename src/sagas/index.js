@@ -1,12 +1,11 @@
 import { all, call, takeLatest, takeEvery, put } from 'redux-saga/effects';
 import { setTodosLoaded, FETCH_TODOS, setTodos, FETCH_ADD_TODO, setAddTodo, setInputText, setAlert, FETCH_DELETE_TODO, setDeleteTodo, FETCH_UPDATE_TODO, setTodoUpdating, setUpdateTodo, FETCH_SWITCH_TODO, setSwitchTodo, fetchDeleteTodo as fetchDeleteTodoAction, FETCH_DELETE_COMPLETED } from '../actions';
 import { ALERT } from "../consts";
+import { v4 as uuidv4 } from 'uuid';
 
 const fetchTodosFromApi = () => {
-  return fetch("http://localhost:8080/todos")
-    .then(res => res.json())
-    .then(json => json)
-    .catch(err => null);
+  const todos = localStorage['TODORR'] || "[]";
+  return JSON.parse(todos);
 }
 
 function backendError() {
@@ -29,16 +28,13 @@ function* watchFetchTodos() {
 }
 
 const fetchAddTodoFromApi = (text) => {
-  return fetch("http://localhost:8080/todos", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ 'text': text })
-  })
-    .then(res => res.json())
-    .then(json => json)
-    .catch(err => null);
+  const todo = {
+    id: uuidv4(),
+    completed: false,
+    text: text
+  }
+  localStorage['TODORR'] = JSON.stringify([...fetchTodosFromApi(), todo]);
+  return todo;
 }
 
 function* fetchAddTodo(action) {
@@ -61,11 +57,8 @@ function* watchFetchAddTodo() {
 }
 
 const fetchDeleteTodoFromApi = (id) => {
-  return fetch("http://localhost:8080/todos/" + id, {
-    method: "DELETE"
-  })
-    .then(res => res.ok)
-    .catch(err => null);
+  localStorage['TODORR'] = JSON.stringify([...fetchTodosFromApi().filter(t => t.id !== id)]);
+  return true;
 }
 
 function* fetchDeleteTodo(action) {
@@ -73,9 +66,6 @@ function* fetchDeleteTodo(action) {
   if (ok === null) {
     yield put(backendError());
   } else {
-    if (!ok) {
-      yield put(setAlert('Unable to delete this ToDo item at backend service. It was probably already deleted.', ALERT.WARNING));
-    }
     yield put(setDeleteTodo(action.id));
   }
 }
@@ -85,16 +75,18 @@ function* watchFetchDeleteTodo() {
 }
 
 const fetchUpdateTodoFromApi = (id, text) => {
-  return fetch("http://localhost:8080/todos/" + id, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ 'text': text })
-  })
-    .then(res => res.json())
-    .then(json => json)
-    .catch(err => null);
+  let result = null;
+  localStorage['TODORR'] = JSON.stringify([
+    ...fetchTodosFromApi().map(t => {
+      if (t.id === id) {
+        result = { ...t, text: text };
+        return result
+      } else {
+        return t
+      }
+    })
+  ]);
+  return result;
 }
 
 function* fetchUpdateTodo(action) {
@@ -117,28 +109,24 @@ function* watchFetchUpdateTodo() {
 }
 
 const fetchSwitchTodoFromApi = (id, completed) => {
-  const method = completed ? 'complete' : 'incomplete';
-  return fetch("http://localhost:8080/todos/" + id + '/' + method, {
-    method: "POST"
-  })
-    .then(res => res.text())
-    .then(text => {
-      try {
-        return JSON.parse(text);
-      } catch (err) {
-        return "";
+  let result = null;
+  localStorage['TODORR'] = JSON.stringify([
+    ...fetchTodosFromApi().map(t => {
+      if (t.id === id) {
+        result = { ...t, completed: completed };
+        return result
+      } else {
+        return t
       }
     })
-    .catch(err => null);
+  ]);
+  return result;
 }
 
 function* fetchSwitchTodo(action) {
   const todo = yield call(fetchSwitchTodoFromApi, action.id, action.completed);
   if (todo === null) {
     yield put(backendError());
-  } else if (todo === "") {
-    yield put(setAlert('Unable to switch state of this ToDo item at backend service. It was probably already switched.', ALERT.WARNING));
-    yield put(setSwitchTodo(action.id, action.completed));
   } else {
     yield put(setSwitchTodo(todo.id, todo.completed));
   }
@@ -149,10 +137,7 @@ function* watchFetchSwitchTodo() {
 }
 
 const fetchGetCompletedFromApi = () => {
-  return fetch("http://localhost:8080/todos/completed")
-    .then(res => res.json())
-    .then(json => json)
-    .catch(err => null);
+  return [...fetchTodosFromApi().filter(t => t.completed)];
 }
 
 function* fetchDeleteCompleted() {
