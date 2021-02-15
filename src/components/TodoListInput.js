@@ -1,6 +1,6 @@
 function TodoListInput({ fetchAddTodo, setInputText, inputText }) {
   return (
-    <form onSubmit={() => fetchAddTodo(inputText)}>
+    <form onSubmit={(e) => { e.preventDefault(); fetchAddTodo(inputText); }}>
       <div className="panel-block">
         <div className="control">
           <div className="field has-addons">
