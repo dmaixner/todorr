@@ -13,7 +13,7 @@ function TodoItem({ todo, updating, updatingText, fetchDeleteTodo, setTodoUpdati
           <div className={"column has-text-left todoitem" + (todo.completed ? " strikethrough" : "")}>
             {
               updating ? (
-                <form onSubmit={() => fetchUpdateTodo(todo.id, updatingText)}>
+                <form onSubmit={(e) => { e.preventDefault(); fetchUpdateTodo(todo.id, updatingText); }}>
                   <div className="control has-icons-left">
                     <input
                       className="input is-primary"
